@@ -1,0 +1,18 @@
+# Specs
+osx_image: xcode8
+language: objective-c
+
+# Repository
+branches:
+  only:
+  - master
+  - develop
+
+# Pre-build actions
+before_install:
+- gem install cocoapods -v '1.1.0.rc.2'
+
+# Build
+script:
+- set -o pipefail && xcodebuild test -workspace FiveUtils.xcworkspace -scheme FiveUtils -sdk iphonesimulator10.0 ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 6,OS=10.0' | xcpretty
+- pod lib lint
